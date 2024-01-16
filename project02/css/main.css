@@ -1,88 +1,69 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  body {
-    display: grid;
-    place-items: center;
-    min-height: 100vh;
-  }
-  
-  ul {
-    display: flex;
-    width: calc(80% - 2rem);
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-  }
-  
-  li {
-    padding: 0;
-  }
-  
-  img {
-    max-width: 100%;
-    width: 100%;
-    object-fit: cover;
-    transition: all 0.2s ease;
-  }
-  
-  ul:is(:hover, :focus-within) img {
-    opacity: calc(0.1 + (var(--active-lerp, 0) * 0.9));
-    filter: grayscale(calc(1 - var(--active-lerp, 0)));
-  }
-  
-  :root {
-    --lerp-0: 1;
-    --lerp-1: 0.5787037;
-    --lerp-2: 0.2962963;
-    --lerp-3: 0.125;
-    --lerp-4: 0.037037;
-    --lerp-5: 0.0046296;
-    --lerp-6: 0;
-  }
-  
-  a {
-    outline-offset: 4px;
-  }
-  
-  li {
-    flex: calc(0.1 + (var(--active-lerp, 0) * 1));
-    transition: flex 0.2s ease;
-  }
-  
-  li:is(:hover, :focus-within) {
-    --active-lerp: var(--lerp-0);
-    z-index: 7;
-  }
-  li:has(+ li:is(:hover, :focus-within)),
-  li:is(:hover, :focus-within) + li {
-    --active-lerp: var(--lerp-1);
-    z-index: 6;
-  }
-  li:has(+ li + li:is(:hover, :focus-within)),
-  li:is(:hover, :focus-within) + li + li {
-    --active-lerp: var(--lerp-2);
-    z-index: 5;
-  }
-  li:has(+ li + li + li:is(:hover, :focus-within)),
-  li:is(:hover, :focus-within) + li + li + li {
-    --active-lerp: var(--lerp-3);
-    z-index: 4;
-  }
-  li:has(+ li + li + li + li:is(:hover, :focus-within)),
-  li:is(:hover, :focus-within) + li + li + li + li {
-    --active-lerp: var(--lerp-4);
-    z-index: 3;
-  }
-  li:has(+ li + li + li + li + li:is(:hover, :focus-within)),
-  li:is(:hover, :focus-within) + li + li + li + li + li {
-    --active-lerp: var(--lerp-5);
-    z-index: 2;
-  }
-  li:has(+ li + li + li + li + li + li:is(:hover, :focus-within)),
-  li:is(:hover, :focus-within) + li + li + li + li + li + li {
-    --active-lerp: var(--lerp-6);
-    z-index: 1;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+body {
+    font-family: Inter, sans-serif;
+}
+
+@keyframes jumbo {
+    from {
+        background-position: 50% 50%, 50% 50%;
+    }
+    to {
+        background-position: 350% 50%, 350% 50%;
+    }
+}
+
+.jumbo {
+    --stripes: repeating-linear-gradient(
+        100deg,
+        #fff 0%,
+        #fff 7%,
+        transparent 10%,
+        transparent 12%,
+        #fff 16%
+    );
+    --stripesDark: repeating-linear-gradient(
+        100deg,
+        #000 0%,
+        #000 7%,
+        transparent 10%,
+        transparent 12%,
+        #000 16%
+    );
+    --rainbow: repeating-linear-gradient(
+        100deg,
+        #60a5fa 10%,
+        #e879f9 15%,
+        #60a5fa 20%,
+        #5eead4 25%,
+        #60a5fa 30%
+    );
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+
+    filter: blur(10px) invert(100%);
+
+    mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
+
+    pointer-events: none;
+}
+
+.jumbo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 200%, 100%;
+    animation: jumbo 60s linear infinite;
+    background-attachment: fixed;
+    mix-blend-mode: difference;
+}
+
+.dark .jumbo {
+    background-image: var(--stripesDark), var(--rainbow);
+    filter: blur(10px) opacity(50%) saturate(200%);
+}
+.dark .jumbo::after {
+    background-image: var(--stripesDark), var(--rainbow);
+}
