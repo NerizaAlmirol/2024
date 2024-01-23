@@ -4,7 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Colorful Form Using CSS :has</title>
   </head>
-  <body></body>
+  <body>
+    <form>
+      <h2>:has() sunt</h2>
+      <div>
+        <label for="username">username: </label>
+        <input type="text" id="username" required />
+      </div>
+      <div>
+        <label for="password">password: </label>
+        <input type="password" id="password" required />
+      </div>
+      <!-- the type="button" is just in case you click on the button it does not reload the page -->
+      <button id="submit" type="button">submit</button>
+    </form>
+  </body>
 </html>
